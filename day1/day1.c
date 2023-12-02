@@ -1,13 +1,9 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-typedef struct Line
-{
-    char *characters;
-} Line;
-
-int main()
+int part1()
 {
     FILE *fp;
     char *line = NULL;
@@ -52,7 +48,93 @@ int main()
         last_char = '\0';
     }
 
-    printf("Total is %lu\n", total);
+    printf("Total for part 1 is %lu\n", total);
     free(line);
+    return 0;
+}
+
+int part2()
+{
+    FILE *fp;
+    char *line = NULL;
+    size_t length = 0;
+    ssize_t read;
+
+    size_t first_char = 0;
+    size_t last_char = 0;
+
+    char digits[18][6] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+                          "1",   "2",   "3",     "4",    "5",    "6",   "7",     "8",     "9"};
+
+    size_t total = 0;
+
+    fp = fopen("input.txt", "r");
+    if (fp == NULL)
+    {
+        exit(-1);
+    }
+    size_t line_num = 0;
+    while ((read = getline(&line, &length, fp)) != -1)
+    {
+        line_num++;
+        size_t offset_first = -1;
+        size_t offset_last = -1;
+        for (size_t j = 0; j < 18; j++)
+        {
+            char *found = strstr(line, digits[j]);
+            if (found)
+            {
+                if (offset_first == -1 || offset_first > (found - line))
+                {
+                    offset_first = found - line;
+                    if (j < 9)
+                    {
+                        first_char = (j + 1) * 10;
+                    }
+                    else
+                    {
+                        first_char = (j - 8) * 10;
+                    }
+                }
+
+                char *next = "a";
+                while (next)
+                {
+                    next = strstr(++found, digits[j]);
+                    if (next)
+                    {
+                        found = next;
+                    }
+                }
+
+                if (offset_last == -1 || offset_last < (found - line))
+                {
+                    offset_last = found - line;
+                    if (j < 9)
+                    {
+                        last_char = (j + 1);
+                    }
+                    else
+                    {
+                        last_char = (j - 8);
+                    }
+                }
+            }
+        }
+
+        total += first_char + last_char;
+        first_char = 0;
+        last_char = 0;
+    }
+
+    printf("Total for part 2 is %lu\n", total);
+    free(line);
+    return 0;
+}
+
+int main()
+{
+    part1();
+    part2();
     exit(0);
 }

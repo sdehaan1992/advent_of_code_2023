@@ -1,3 +1,4 @@
+#include "../timings.c"
 #include <math.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -109,7 +110,6 @@ void part1()
         PartNumber part = parts[i];
 
         int num_adjacent_points = (floor(log10(part.number) + 1) + 2) * 3;
-        Point *adjacent_points = (Point *)malloc(num_adjacent_points * sizeof(Point));
 
         for (int j = 0; j < num_adjacent_points; j++)
         {
@@ -118,23 +118,19 @@ void part1()
             {
                 for (int y = part.start.y - 1; y <= part.start.y + 1; y++)
                 {
-                    adjacent_points[j].x = x;
-                    adjacent_points[j].y = y;
-
                     for (int symbol = 0; symbol < num_symbols; symbol++)
                     {
                         if (symbols[symbol].x == x && symbols[symbol].y == y)
                         {
                             total += part.number;
-                            goto omgimsosorry;
+                            goto next_part;
                         }
                     }
                 }
             }
         }
 
-    omgimsosorry:;
-        free(adjacent_points);
+    next_part:;
     }
 
     printf("Total part 1 is %zu\n", total);
@@ -257,7 +253,7 @@ void part2()
                         adjacent_parts[1] = cur_part.number;
                         continue;
                     }
-                    goto omgimsosorry;
+                    goto next_gear;
                 }
             }
         }
@@ -266,7 +262,7 @@ void part2()
         {
             total += (long)adjacent_parts[0] * adjacent_parts[1];
         }
-    omgimsosorry:;
+    next_gear:;
     }
 
     printf("Total part 2 is %zu\n", total);
@@ -276,7 +272,7 @@ void part2()
 
 int main()
 {
-    part1();
-    part2();
+    printf("Part 1 ran in %f seconds\n", get_performance(&part1));
+    printf("Part 2 ran in %f seconds\n", get_performance(&part2));
     exit(0);
 }

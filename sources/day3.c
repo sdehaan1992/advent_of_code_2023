@@ -1,4 +1,4 @@
-#include "../timings.c"
+#include "timings.h"
 #include <math.h>
 #include <stddef.h>
 #include <stdio.h>

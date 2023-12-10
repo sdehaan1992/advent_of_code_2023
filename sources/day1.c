@@ -1,9 +1,10 @@
+#include "timings.h"
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int part1()
+void part1()
 {
     FILE *fp;
     char *line = NULL;
@@ -15,7 +16,7 @@ int part1()
 
     size_t total = 0;
 
-    fp = fopen("input.txt", "r");
+    fp = fopen("../input/day1.txt", "r");
     if (fp == NULL)
     {
         exit(-1);
@@ -50,10 +51,9 @@ int part1()
 
     printf("Total for part 1 is %lu\n", total);
     free(line);
-    return 0;
 }
 
-int part2()
+void part2()
 {
     FILE *fp;
     char *line = NULL;
@@ -68,7 +68,7 @@ int part2()
 
     size_t total = 0;
 
-    fp = fopen("input.txt", "r");
+    fp = fopen("../input/day1.txt", "r");
     if (fp == NULL)
     {
         exit(-1);
@@ -129,12 +129,11 @@ int part2()
 
     printf("Total for part 2 is %lu\n", total);
     free(line);
-    return 0;
 }
 
 int main()
 {
-    part1();
-    part2();
+    printf("Part 1 ran in %f seconds\n", get_performance(&part1));
+    printf("Part 2 ran in %f seconds\n", get_performance(&part2));
     exit(0);
 }

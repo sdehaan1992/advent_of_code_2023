@@ -1,3 +1,4 @@
+#include "timings.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,7 +10,7 @@ void result()
     size_t length = 0;
     ssize_t read;
 
-    fp = fopen("input.txt", "r");
+    fp = fopen("../input/day2.txt", "r");
     if (fp == NULL)
     {
         exit(-1);
@@ -82,6 +83,6 @@ void result()
 
 int main()
 {
-    result();
+    printf("Day 2 ran in %f seconds\n", get_performance(&result));
     exit(0);
 }

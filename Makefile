@@ -9,13 +9,16 @@ HEADERS=$(shell find $(SOURCE_DIR) -name "*.h")
 LIBS=$(patsubst %.h,%.o,$(HEADERS))
 OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
 
-all: day1 day2 day3 
+all: day1 day2 day3 day4
+
+day%: $(BUILD_DIR)/day%
+	
 
 %.o: %.c 
 	$(CC) $(CFLAGS) -c $< -o $@
 
-day%: $(SOURCE_DIR)/day%.o $(LIBS)
-	$(CC) $(CFLAGS) $^ -o $(BUILD_DIR)/$@
+$(BUILD_DIR)/day%: $(SOURCE_DIR)/day%.o $(LIBS)
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
 	rm -rf $(OBJECTS)
@@ -23,4 +26,4 @@ clean:
 remove: clean
 	rm -rf $(BUILD_DIR)/*
 
-.PRECIOUS: $(OBJECTS)
+.PRECIOUS: $(OBJECTS) $(BUILD_DIR)/day%

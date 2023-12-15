@@ -15,10 +15,10 @@ day%: $(BUILD_DIR)/day%
 	
 
 %.o: %.c 
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(CUSTOM_FLAGS) -c $< -o $@
 
 $(BUILD_DIR)/day%: $(SOURCE_DIR)/day%.o $(LIBS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(CUSTOM_FLAGS) $^ -o $@
 
 clean:
 	rm -rf $(OBJECTS)

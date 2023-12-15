@@ -10,7 +10,7 @@ void result()
     size_t length = 0;
     ssize_t read;
 
-    fp = fopen("../input/day2.txt", "r");
+    fp = fopen("input/day2.txt", "r");
     if (fp == NULL)
     {
         exit(-1);

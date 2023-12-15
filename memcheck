@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Check if an argument was provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <dayX>"
+    exit 1
+fi
+
+# Set the custom flags
+export CUSTOM_FLAGS="-Wall -Wextra -pedantic -Wmissing-declarations -fsanitize=address -fno-common -fno-omit-frame-pointer"
+
+# Call the make command with the user-provided argument
+echo "Compiling binary for ${1} with additional flags"
+echo "#######################################################################################"
+echo "#######################################################################################"
+echo "#######################################################################################"
+make -s -B ${1}
+echo "#######################################################################################"
+echo "#######################################################################################"
+echo "#######################################################################################"
+
+echo "Executing binary for ${1}"
+
+builds/${1}

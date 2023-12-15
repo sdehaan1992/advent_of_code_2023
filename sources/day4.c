@@ -14,7 +14,7 @@ void part1()
     size_t length = 0;
     ssize_t read;
 
-    fp = fopen("../input/day4.txt", "r");
+    fp = fopen("input/day4.txt", "r");
     if (fp == NULL)
     {
         exit(-1);
@@ -87,7 +87,7 @@ void part2()
     size_t length = 0;
     ssize_t read;
 
-    fp = fopen("../input/day4.txt", "r");
+    fp = fopen("input/day4.txt", "r");
     if (fp == NULL)
     {
         exit(-1);
